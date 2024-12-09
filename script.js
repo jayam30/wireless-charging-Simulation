@@ -1,13 +1,17 @@
-const scooter = document.getElementById('scooter');
-const parkingZone = document.getElementById('parking-zone');
-const statusText = document.getElementById('status');
-let position = { x: 0, y: 0 };
+const scooter = document.getElementById("scooter");
+const parkingZone = document.getElementById("parking-zone");
+const statusText = document.getElementById("status");
+let position = {
+  x: window.innerWidth / 3.65, // Center horizontally
+  y: window.innerHeight - 300,  // Near the bottom
+};
 
-
+// Preload the charging image
 const chargingImage = new Image();
 chargingImage.src = "charging.jpg"; // Replace with the correct path to your image
 
 
+// Update scooter's position on the screen
 const updatePosition = () => {
   // Keep the scooter within screen boundaries
   position.x = Math.max(0, Math.min(window.innerWidth - scooter.offsetWidth, position.x));
@@ -16,20 +20,23 @@ const updatePosition = () => {
   scooter.style.transform = `translate(${position.x}px, ${position.y}px)`;
 };
 
-
+// Check if the scooter overlaps with the black box (parking zone)
 const checkParking = () => {
   const scooterRect = scooter.getBoundingClientRect();
   const parkingRect = parkingZone.getBoundingClientRect();
 
-  if (
-    scooterRect.right > parkingRect.left &&
+  // Check if the rectangles overlap
+  const isOverlapping =
     scooterRect.left < parkingRect.right &&
-    scooterRect.bottom > parkingRect.top &&
-    scooterRect.top < parkingRect.bottom
-  ) {
-    statusText.textContent = 'Parked: Initializing Charging...';
+    scooterRect.right > parkingRect.left &&
+    scooterRect.top < parkingRect.bottom &&
+    scooterRect.bottom > parkingRect.top;
+
+  if (isOverlapping) {
+    statusText.textContent = "Parked: Initializing Charging...";
+
     setTimeout(() => {
-      document.getElementById('simulation').style.opacity = 0;
+      document.getElementById("simulation").style.opacity = 0;
       setTimeout(() => {
         document.body.innerHTML = `
           <div id="charging-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: black; height: 100vh;">
@@ -86,11 +93,11 @@ const checkParking = () => {
   }
 };
 
-
+// Start the charging progress animation
 const startChargingProgress = () => {
   let percentage = 0;
-  const percentageText = document.getElementById('percentage');
-  const circle = document.querySelector('.circle');
+  const percentageText = document.getElementById("percentage");
+  const circle = document.querySelector(".circle");
 
   const interval = setInterval(() => {
     if (percentage < 100) {
@@ -107,24 +114,24 @@ const startChargingProgress = () => {
             <p>You can now unplug and start riding again.</p>
           </div>
         `;
-      }, 50000);
+      }, 5000);
     }
-  }, 3000); 
+  }, 3000); // Increase by 1% every 3 seconds
 };
 
-
-document.addEventListener('keydown', (e) => {
+// Handle keyboard events
+document.addEventListener("keydown", (e) => {
   switch (e.key) {
-    case 'ArrowUp':
+    case "ArrowUp":
       position.y -= 10;
       break;
-    case 'ArrowDown':
+    case "ArrowDown":
       position.y += 10;
       break;
-    case 'ArrowLeft':
+    case "ArrowLeft":
       position.x -= 10;
       break;
-    case 'ArrowRight':
+    case "ArrowRight":
       position.x += 10;
       break;
   }
@@ -132,23 +139,29 @@ document.addEventListener('keydown', (e) => {
   checkParking();
 });
 
-document.getElementById('up').addEventListener('click', () => {
+// Handle button clicks
+document.getElementById("up").addEventListener("click", () => {
   position.y -= 10;
   updatePosition();
   checkParking();
 });
-document.getElementById('down').addEventListener('click', () => {
+document.getElementById("down").addEventListener("click", () => {
   position.y += 10;
   updatePosition();
   checkParking();
 });
-document.getElementById('left').addEventListener('click', () => {
+document.getElementById("left").addEventListener("click", () => {
   position.x -= 10;
   updatePosition();
   checkParking();
 });
-document.getElementById('right').addEventListener('click', () => {
+document.getElementById("right").addEventListener("click", () => {
   position.x += 10;
   updatePosition();
   checkParking();
+});
+
+// Set initial position
+window.addEventListener("load", () => {
+  updatePosition();
 });
