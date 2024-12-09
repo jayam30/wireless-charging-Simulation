@@ -1,4 +1,6 @@
 # 🚗 Electric Scooter Parking Simulator
+[Watch Demo](https://www.loom.com/share/49d47a6b4194453681491d6d7e029992?sid=b5ef1299-9ac6-47f7-90b8-cdd632d57bb6)
+
 
 This project is an **interactive simulation** to demonstrate an electric scooter parking and charging process. It features a virtual scooter that can be moved using arrow keys or on-screen controls. When the scooter is moved into the designated parking zone, the screen transitions to display a charging animation.
 
