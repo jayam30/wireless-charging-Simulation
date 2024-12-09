@@ -13,7 +13,7 @@ const updatePosition = () => {
   position.x = Math.max(0, Math.min(window.innerWidth - scooter.offsetWidth, position.x));
   position.y = Math.max(0, Math.min(window.innerHeight - scooter.offsetHeight, position.y));
 
-  scooter.style.transform = translate(${position.x}px, ${position.y}px);
+  scooter.style.transform = `translate(${position.x}px, ${position.y}px)`;
 };
 
 // Check if the scooter is in the parking zone
@@ -96,8 +96,8 @@ const startChargingProgress = () => {
     if (percentage < 100) {
       percentage++;
       const angle = (percentage / 100) * 360;
-      circle.style.background = conic-gradient(green 0deg, green ${angle}deg, gray ${angle}deg);
-      percentageText.textContent = ${percentage}%;
+      circle.style.background = `conic-gradient(green 0deg, green ${angle}deg, gray ${angle}deg)`;
+      percentageText.textContent = `${percentage}%`;
     } else {
       clearInterval(interval);
       setTimeout(() => {
