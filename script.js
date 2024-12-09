@@ -3,11 +3,11 @@ const parkingZone = document.getElementById('parking-zone');
 const statusText = document.getElementById('status');
 let position = { x: 0, y: 0 };
 
-// Preload the charging image
+
 const chargingImage = new Image();
 chargingImage.src = "charging.jpg"; // Replace with the correct path to your image
 
-// Update scooter's position on the screen
+
 const updatePosition = () => {
   // Keep the scooter within screen boundaries
   position.x = Math.max(0, Math.min(window.innerWidth - scooter.offsetWidth, position.x));
@@ -16,7 +16,7 @@ const updatePosition = () => {
   scooter.style.transform = `translate(${position.x}px, ${position.y}px)`;
 };
 
-// Check if the scooter is in the parking zone
+
 const checkParking = () => {
   const scooterRect = scooter.getBoundingClientRect();
   const parkingRect = parkingZone.getBoundingClientRect();
@@ -86,7 +86,7 @@ const checkParking = () => {
   }
 };
 
-// Start the charging progress animation
+
 const startChargingProgress = () => {
   let percentage = 0;
   const percentageText = document.getElementById('percentage');
@@ -109,10 +109,10 @@ const startChargingProgress = () => {
         `;
       }, 50000);
     }
-  }, 3000); // Increase by 1% every 3 seconds
+  }, 3000); 
 };
 
-// Handle keyboard events
+
 document.addEventListener('keydown', (e) => {
   switch (e.key) {
     case 'ArrowUp':
@@ -132,7 +132,6 @@ document.addEventListener('keydown', (e) => {
   checkParking();
 });
 
-// Handle button clicks
 document.getElementById('up').addEventListener('click', () => {
   position.y -= 10;
   updatePosition();
